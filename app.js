@@ -1,5 +1,6 @@
 import { initHandLandmarker, startDetectionLoop, stopDetectionLoop } from './js/handTracker.js';
 import { classifyGesture } from './js/gestureClassifier.js';
+import { GestureStabilizer } from './js/gestureStabilizer.js';
 
 console.log("GesturePilot AI - app.js loaded");
 
@@ -9,6 +10,8 @@ const prevSlideBtn = document.getElementById('prev-slide-btn');
 const overlayCanvas = document.getElementById('overlay-canvas');
 const videoElement = document.getElementById('webcam');
 const detectedGestureEl = document.getElementById('detected-gesture');
+const stabilizer = new GestureStabilizer();
+const currentActionEl = document.getElementById('current-action');
 
 let cameraRunning = false;
 let modelReady = false;
@@ -52,11 +55,20 @@ startCameraBtn.addEventListener('click', async () => {
 });
 
 function handleResults(results) {
+  let rawGesture = 'NONE';
+
   if (results.landmarks && results.landmarks.length > 0) {
-    const gesture = classifyGesture(results.landmarks[0]);
-    detectedGestureEl.textContent = gesture;
-  } else {
-    detectedGestureEl.textContent = 'NONE';
+    rawGesture = classifyGesture(results.landmarks[0]);
+  }
+
+  const triggeredGesture = stabilizer.process(rawGesture);
+
+  // Always show the stable/confirmed gesture, not the raw flickery one
+  detectedGestureEl.textContent = stabilizer.getConfirmedGesture();
+
+  if (triggeredGesture) {
+    console.log('ACTION TRIGGERED:', triggeredGesture);
+    currentActionEl.textContent = triggeredGesture; // Phase 8 maps this to real actions
   }
 }
 
