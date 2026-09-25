@@ -1,6 +1,23 @@
 import { initHandLandmarker, startDetectionLoop, stopDetectionLoop } from './js/handTracker.js';
 import { classifyGesture } from './js/gestureClassifier.js';
 import { GestureStabilizer } from './js/gestureStabilizer.js';
+import {
+  nextSlide,
+  previousSlide,
+  togglePresentationMode,
+  confirmAction,
+  pausePresentation,
+  selectAction
+} from './js/presentation.js';
+
+const GESTURE_ACTION_MAP = {
+  TWO_FINGERS: nextSlide,
+  ONE_FINGER: previousSlide,
+  OPEN_PALM: togglePresentationMode,
+  THUMBS_UP: confirmAction,
+  FIST: pausePresentation,
+  PINCH: selectAction
+};
 
 console.log("GesturePilot AI - app.js loaded");
 
@@ -65,12 +82,17 @@ function handleResults(results) {
 
   // Always show the stable/confirmed gesture, not the raw flickery one
   detectedGestureEl.textContent = stabilizer.getConfirmedGesture();
-
-  if (triggeredGesture) {
+  
+    if (triggeredGesture) {
     console.log('ACTION TRIGGERED:', triggeredGesture);
-    currentActionEl.textContent = triggeredGesture; // Phase 8 maps this to real actions
+    currentActionEl.textContent = triggeredGesture;
+
+    const actionFn = GESTURE_ACTION_MAP[triggeredGesture];
+    if (actionFn) {
+      actionFn();
+    }
   }
 }
 
-nextSlideBtn.addEventListener('click', () => console.log('Next slide clicked'));
-prevSlideBtn.addEventListener('click', () => console.log('Previous slide clicked'));
+nextSlideBtn.addEventListener('click', nextSlide);
+prevSlideBtn.addEventListener('click', previousSlide);
