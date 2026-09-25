@@ -1,4 +1,5 @@
 import { initHandLandmarker, startDetectionLoop, stopDetectionLoop } from './js/handTracker.js';
+import { classifyGesture } from './js/gestureClassifier.js';
 
 console.log("GesturePilot AI - app.js loaded");
 
@@ -7,6 +8,7 @@ const nextSlideBtn = document.getElementById('next-slide-btn');
 const prevSlideBtn = document.getElementById('prev-slide-btn');
 const overlayCanvas = document.getElementById('overlay-canvas');
 const videoElement = document.getElementById('webcam');
+const detectedGestureEl = document.getElementById('detected-gesture');
 
 let cameraRunning = false;
 let modelReady = false;
@@ -50,10 +52,11 @@ startCameraBtn.addEventListener('click', async () => {
 });
 
 function handleResults(results) {
-  // Phase 6 will interpret these landmarks into gestures.
-  // For now, just prove data is flowing:
   if (results.landmarks && results.landmarks.length > 0) {
-    console.log('Hand detected, landmark count:', results.landmarks[0].length);
+    const gesture = classifyGesture(results.landmarks[0]);
+    detectedGestureEl.textContent = gesture;
+  } else {
+    detectedGestureEl.textContent = 'NONE';
   }
 }
 
