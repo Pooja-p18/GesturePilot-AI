@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GesturePilot AI</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header class="app-header">
+    <h1>GesturePilot AI</h1>
+    <p class="tagline">Touchless Control powered by On-Device AI</p>
+    <div id="status-indicator" class="status-badge status-off">
+      ● ON-DEVICE AI INACTIVE
+    </div>
+  </header>
+
+  <main class="app-main">
+
+    <section class="camera-section">
+      <h2>Camera</h2>
+      <video id="webcam" autoplay playsinline muted></video>
+      <div id="camera-status">Camera: Not started</div>
+      <button id="start-camera-btn">Start Camera</button>
+    </section>
+
+    <section class="gesture-section">
+      <h2>Gesture Detection</h2>
+      <div class="info-card">
+        <p>Detected Gesture: <span id="detected-gesture">—</span></p>
+        <p>Current Action: <span id="current-action">—</span></p>
+        <p>AI Model Status: <span id="model-status">Not loaded</span></p>
+        <p>FPS: <span id="fps-counter">—</span></p>
+      </div>
+    </section>
+
+    <section class="presentation-section">
+      <h2>Presentation</h2>
+      <div id="slide-container">
+        <div class="slide active">
+          <h3>Slide 1</h3>
+          <p>GesturePilot AI</p>
+        </div>
+      </div>
+      <div class="slide-controls">
+        <button id="prev-slide-btn">Previous</button>
+        <span id="slide-number">1 / 10</span>
+        <button id="next-slide-btn">Next</button>
+      </div>
+    </section>
+
+    <section class="gesture-guide">
+      <h2>Gesture Guide</h2>
+      <ul>
+        <li>✋ Open Palm → Start/Stop</li>
+        <li>☝️ One Finger → Previous Slide</li>
+        <li>✌️ Two Fingers → Next Slide</li>
+        <li>👍 Thumbs Up → Confirm</li>
+        <li>✊ Fist → Pause</li>
+        <li>🤏 Pinch → Select</li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>Camera frames are processed locally for gesture recognition. This application does not intentionally upload camera frames to a cloud AI service.</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
