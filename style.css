@@ -84,6 +84,18 @@ button:hover { background: #3bb8ac; }
   text-align: center;
 }
 
+.video-wrapper {
+  position: relative;
+}
+
+#overlay-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
 .gesture-guide ul { list-style: none; }
 .gesture-guide li { padding: 6px 0; border-bottom: 1px solid #2a2d34; }
 

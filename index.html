@@ -20,7 +20,10 @@
 
     <section class="camera-section">
       <h2>Camera</h2>
-      <video id="webcam" autoplay playsinline muted></video>
+      <div class="video-wrapper">
+        <video id="webcam" autoplay playsinline muted></video>
+        <canvas id="overlay-canvas"></canvas>
+      </div>
       <div id="camera-status">Camera: Not started</div>
       <button id="start-camera-btn">Start Camera</button>
     </section>
@@ -69,6 +72,6 @@
   </footer>
 
   <script src="js/camera.js"></script>
-  <script src="app.js"></script>
+  <script type="module" src="app.js"></script>
 </body>
 </html>

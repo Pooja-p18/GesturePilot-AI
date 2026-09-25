@@ -69,3 +69,7 @@ function handleCameraError(err) {
 function isCameraActive() {
   return currentStream !== null;
 }
+
+window.startCamera = startCamera;
+window.stopCamera = stopCamera;
+window.isCameraActive = isCameraActive;
