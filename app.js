@@ -1,7 +1,19 @@
 console.log("GesturePilot AI - app.js loaded");
 
-document.getElementById('start-camera-btn').addEventListener('click', () => {
-  alert('Camera logic comes in Phase 4!');
+let cameraRunning = false;
+
+startCameraBtn.addEventListener('click', async () => {
+  if (!cameraRunning) {
+    try {
+      await startCamera();
+      cameraRunning = true;
+    } catch (err) {
+      cameraRunning = false;
+    }
+  } else {
+    stopCamera();
+    cameraRunning = false;
+  }
 });
 
 document.getElementById('next-slide-btn').addEventListener('click', () => {
