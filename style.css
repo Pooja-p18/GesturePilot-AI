@@ -96,6 +96,30 @@ button:hover { background: #3bb8ac; }
   height: 100%;
 }
 
+@keyframes actionFlash {
+  0%   { background: #1f3a2a; }
+  100% { background: #16181d; }
+}
+
+.action-flash {
+  animation: actionFlash 0.6s ease-out;
+}
+
+.info-card p span {
+  font-weight: 600;
+  color: #4fd1c5;
+}
+
+.slide {
+  opacity: 0;
+  animation: slideFadeIn 0.35s ease-out forwards;
+}
+
+@keyframes slideFadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
 .gesture-guide ul { list-style: none; }
 .gesture-guide li { padding: 6px 0; border-bottom: 1px solid #2a2d34; }
 
